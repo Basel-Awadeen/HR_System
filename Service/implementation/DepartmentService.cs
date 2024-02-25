@@ -173,9 +173,22 @@ namespace Service.implementation
 
         }
 
-        public Task<string> SetSalaryEmployee(string HR_email, double value)
+        public async Task<string> SetSalaryEmployee(string HR_email, string Emp_email, double value)
         {
-            throw new NotImplementedException();
+            (bool isHRInCompany, int companyId) = await IsHRInCompany(HR_email);
+
+            if (!isHRInCompany || companyId == 0) return "Entered Company not Found";
+
+            var employee = await userManager.FindByEmailAsync(Emp_email);
+            if (employee != null && companyId == employee.CompanyId)
+            {
+                employee.BasicSalary = value;
+                await userManager.UpdateAsync(employee);
+                return "Salary for Employee is Updated successfully";
+            }
+            return "Failed";
+            
+
         }
 
         #endregion

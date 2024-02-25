@@ -14,8 +14,9 @@ namespace Service.IService
         public Task<string> SetManagerForDepartment(string HR_email, int departmentId, string Employee_email);
         public Task<(bool, int)> IsHRInCompany(string HR_email);
         public Task<string> DeleteDepartment(string HR_email , int depId);
-        public Task<string> SetSalaryEmployee(string HR_email , double value);
-        
+        public Task<string> SetSalaryEmployee(string HR_email, string Emp_email, double value);
+
+
 
 
     }
