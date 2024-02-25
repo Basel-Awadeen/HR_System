@@ -83,5 +83,20 @@ namespace HR_System.Controllers
             }
 
         }
+        [HttpPost("Set_Salary")]
+        [Authorize(Roles = "HR")]
+        public async Task<IActionResult> SetSalary([FromBody] New_Salary command)
+        {
+            try
+            {
+                var response = await mediator.Send(command);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Internal Server Error");
+            }
+
+        }
     }
 }

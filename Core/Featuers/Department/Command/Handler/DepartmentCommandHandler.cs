@@ -17,6 +17,8 @@ namespace Core.Featuers.Department.Command.Handler
         IRequestHandler<AddNewDepartments, Response<string>>
       , IRequestHandler<AddEmployee, Response<string>>
       , IRequestHandler<SetManager, Response<string>>
+      , IRequestHandler<New_Salary, Response<string>>
+
 
     {
         #region Fields
@@ -61,6 +63,14 @@ namespace Core.Featuers.Department.Command.Handler
 
             return BadRequest<string>(result);
 
+        }
+
+        public async Task<Response<string>> Handle(New_Salary request, CancellationToken cancellationToken)
+        {
+            var result = await departmentService.SetSalaryEmployee(request.HR_Email , request.Employee_Email , request.Salary);
+            if (result == "Salary for Employee is Updated successfully") return Success(result);
+
+            return BadRequest<string>(result);
         }
         #endregion
     }
